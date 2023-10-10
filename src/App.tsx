@@ -4,6 +4,7 @@ import './App.css';
 import TextArea from './textArea';
 import DebugWindow from './debugWindow';
 import styled from 'styled-components';
+import copyIcon from'./copy.png';
 
 const Container = styled('div')`
 `;
@@ -36,6 +37,11 @@ const StyledButton = styled('button')`
   margin-top: 1em;
 `
 
+const StyledIcon = styled('img')`
+  width: 1em;
+  height: 1em;
+`;
+
 const shuffle = (array: string[]) => { 
   return array.sort(() => Math.random() - 0.5); 
 }; 
@@ -49,6 +55,18 @@ function App() {
     setResult(shuffle(curr).join(' '));
   }, [state]);
 
+  const copy = useCallback(() => {
+    const newClip = document.querySelector('#result')?.innerHTML || '';
+    navigator.clipboard.writeText(newClip).then(
+      () => {
+        console.log('success: set result to clipboard.');
+      },
+      () => {
+        console.log('failed: could not set result to clipboard');
+      },
+    );
+  }, []);
+
   return (
     <Container>
       <FlexParent>
@@ -58,8 +76,11 @@ function App() {
           <StyledButton onClick={handleClick} name={'collide'}>Collide</StyledButton>
         </div>
         <div>
-          <h4>Output</h4>
-          <ResultWindow>
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            <h4>Output</h4>
+            <StyledIcon src={copyIcon} onClick={copy} />
+          </div>
+          <ResultWindow id="result">
             {result}
           </ResultWindow>
         </div>
