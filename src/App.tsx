@@ -42,6 +42,11 @@ const StyledIcon = styled('img')`
   height: 1em;
 `;
 
+const Header = styled('h4')`
+  margin: 1em 0;
+  font-weight: normal;
+`
+
 const shuffle = (array: string[]) => { 
   return array.sort(() => Math.random() - 0.5); 
 }; 
@@ -71,13 +76,13 @@ function App() {
     <Container>
       <FlexParent>
         <div>
-          <h4>Input</h4>
+          <Header>Input</Header>
           <TextArea handleChange={setState} state={state} />
           <StyledButton onClick={handleClick} name={'collide'}>Collide</StyledButton>
         </div>
         <div>
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-            <h4>Output</h4>
+            <Header>Output</Header>
             <StyledIcon src={copyIcon} onClick={copy} />
           </div>
           <ResultWindow id="result">
