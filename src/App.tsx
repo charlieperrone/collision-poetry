@@ -29,6 +29,10 @@ const FlexParent = styled('div')`
 const ResultWindow = styled('div')`
   border: 1px solid #D9D9D9;
   flex-grow: 1;
+
+  p {
+    margin: 0;
+  }
 `;
 
 const StyledButton = styled('button')`
@@ -53,11 +57,13 @@ const shuffle = (array: string[]) => {
 
 function App() {
   const [state, setState] = useState('');
-  const [result, setResult] = useState('');
+  const [result, setResult] = useState<String[]>([]);
 
   const handleClick = useCallback((_e: any) => {
-    const curr = state.split(' ');
-    setResult(shuffle(curr).join(' '));
+    const lines = state.split('\n');
+    const result = lines.map(l => shuffle(l.split(' ')).join(' '));
+
+    setResult(result);
   }, [state]);
 
   const copy = useCallback(() => {
@@ -86,7 +92,9 @@ function App() {
             <StyledIcon src={copyIcon} onClick={copy} />
           </div>
           <ResultWindow id="result">
-            {result}
+            {result.map(r =>
+              <p key={r.toString()}>{r}</p>
+            )}
           </ResultWindow>
         </div>
         {/* <DebugWindow state={state} /> */}
