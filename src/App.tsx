@@ -51,9 +51,11 @@ const Header = styled('h4')`
   font-weight: normal;
 `
 
-const shuffle = (array: string[]) => { 
-  return array.sort(() => Math.random() - 0.5); 
-}; 
+const shuffle = (array: string) =>
+  array
+    .split(' ')
+    .sort(() => Math.random() - 0.5)
+    .join(' '); 
 
 function App() {
   const [state, setState] = useState('');
@@ -61,9 +63,8 @@ function App() {
 
   const handleClick = useCallback((_e: any) => {
     const lines = state.split('\n');
-    const result = lines.map(l => shuffle(l.split(' ')).join(' '));
 
-    setResult(result);
+    setResult(lines.map(l => shuffle(l)));
   }, [state]);
 
   const copy = useCallback(() => {
