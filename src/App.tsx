@@ -3,11 +3,13 @@ import logo from './logo.svg';
 import './App.css';
 import TextArea from './textArea';
 import DebugWindow from './debugWindow';
+import TypeWriterTitle from './TypewriterTitle';
 import styled from 'styled-components';
 import copyIcon from'./copy.png';
 
 const Container = styled('div')`
 `;
+
  
 const FlexParent = styled('div')`
   display: flex;
@@ -82,6 +84,9 @@ function App() {
   return (
     <Container>
       <FlexParent>
+        <div>
+          <TypeWriterTitle />
+        </div>
         <div>
           <Header>Input</Header>
           <TextArea handleChange={setState} state={state} />
